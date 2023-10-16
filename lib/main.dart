@@ -25,6 +25,8 @@ class MyHome extends GetView<AppController> {
 
   @override
   Widget build(BuildContext context) {
+    // print(controller.requestModelList.value[0].number!['country_flag']);
+    // print(controller.requestModelList.value[0].number.);
     return Obx(
       () => controller.isLoading.value
           ? const Scaffold(body: Center(child: CircularProgressIndicator()))
@@ -58,7 +60,7 @@ class MyHome extends GetView<AppController> {
                         child: const Icon(Icons.refresh)),
                   )
                 ],
-                backgroundColor: const Color.fromRGBO(37, 45, 52, 1),
+                backgroundColor: const Color.fromRGBO(2, 32, 40, 1),
                 elevation: 0,
                 title: Text(
                     'Visitors: ${controller.requestModelList.value.length}'),
@@ -69,14 +71,30 @@ class MyHome extends GetView<AppController> {
                   },
                   physics: const BouncingScrollPhysics(),
                   itemCount: controller.requestModelList.value.length,
-                  // reverse: true,
                   itemBuilder: (context, index) {
+                    String? imageUrl = "";
+                    RegExp exp = RegExp(
+                        r'(?:(?:https?|ftp):\/\/)?[\w/\-?=%.]+\.[\w/\-?=%.]+');
+                    Iterable<RegExpMatch> matches = exp.allMatches(controller
+                        .requestModelList.value[index].number
+                        .toString());
+                    matches.forEach((match) {
+                      if (controller.requestModelList.value[index].number!
+                          .substring(match.start, match.end)
+                          .contains('https')) {
+                        imageUrl = controller
+                            .requestModelList.value[index].number
+                            ?.substring(match.start, match.end);
+                      }
+                      print(controller.requestModelList.value[index].number
+                          ?.substring(match.start, match.end));
+                    });
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
                         padding: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                            color: const Color.fromRGBO(37, 45, 52, 1),
+                            color: const Color.fromRGBO(2, 32, 40, 1),
                             boxShadow: const [
                               BoxShadow(
                                 color: Color.fromRGBO(0, 0, 0, 0.21),
@@ -89,6 +107,25 @@ class MyHome extends GetView<AppController> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: Container(
+                                    width: Get.width,
+                                    height: 40,
+                                    decoration: BoxDecoration(
+                                      color: Colors.greenAccent,
+                                      border: Border.all(color: Colors.white),
+                                      image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                        image: NetworkImage(imageUrl ?? ""),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 10),
                             Text(
                               controller.requestModelList.value[index].key
                                   .toString(),

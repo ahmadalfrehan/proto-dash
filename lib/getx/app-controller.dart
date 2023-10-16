@@ -11,6 +11,7 @@ class AppController extends GetxController {
   RxBool isLoading = false.obs;
   RxList<RequestModel> requestModelList = <RequestModel>[].obs;
 
+  String url = '';
   @override
   onInit() {
     super.onInit();
