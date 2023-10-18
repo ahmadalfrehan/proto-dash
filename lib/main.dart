@@ -25,8 +25,7 @@ class MyHome extends GetView<AppController> {
 
   @override
   Widget build(BuildContext context) {
-    // print(controller.requestModelList.value[0].number!['country_flag']);
-    // print(controller.requestModelList.value[0].number.);
+
     return Obx(
       () => controller.isLoading.value
           ? const Scaffold(body: Center(child: CircularProgressIndicator()))
