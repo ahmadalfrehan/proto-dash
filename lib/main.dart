@@ -36,7 +36,7 @@ class MyHome extends GetView<AppController> {
                   child: InkWell(
                       onTap: () {
                         if (controller.fileId.value == "11037c1ef2f0") {
-                          controller.fileId.value = "5950f706448f";
+                          controller.fileId.value = "b74989954456";
                           controller.requestModelList.clear();
                           controller.getHttp();
                         } else {
@@ -124,7 +124,7 @@ class MyHome extends GetView<AppController> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: 10),
+                            const SizedBox(height: 10),
                             Text(
                               controller.requestModelList.value[index].key
                                   .toString(),
